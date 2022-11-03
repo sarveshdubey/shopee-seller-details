@@ -9,7 +9,7 @@ class Browser:
 
     
     def get_browser():
-
+       
         chrome_options = Options()
         preferences = {
                 "webrtc.ip_handling_policy": "disable_non_proxied_udp",
@@ -20,14 +20,14 @@ class Browser:
             }
 
         chrome_options.add_argument("--headless")
-        chrome_options.add_argument('--proxy-server=%s' % Proxy)
+        # chrome_options.add_argument('--proxy-server=%s' % Proxy)
         
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--log-level=3")
         chrome_options.add_argument("--disable-gpu")
         chrome_options.add_argument("--disable-notifications")
         chrome_options.add_argument("--start-maximized")
-
+        chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument('--ignore-ssl-errors=yes')
         chrome_options.add_argument('--ignore-certificate-errors')
         chrome_options.add_argument("--disable-bundled-ppapi-flash")
