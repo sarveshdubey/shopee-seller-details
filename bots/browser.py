@@ -2,7 +2,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 
-Proxy = "p.webshare.io:9999"
+proxy = f"{'p.webshare.io'}:9999"
+
 class Browser:
     def __init__(self) -> None:
         pass
@@ -20,8 +21,8 @@ class Browser:
             }
 
         chrome_options.add_argument("--headless")
-        # chrome_options.add_argument('--proxy-server=%s' % Proxy)
-        
+        chrome_options.add_argument(f"--proxy-server={proxy}")
+        chrome_options.add_argument("--proxy-bypass-list=*")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--log-level=3")
         chrome_options.add_argument("--disable-gpu")

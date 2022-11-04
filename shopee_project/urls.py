@@ -18,5 +18,5 @@ from django.urls import path,include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('shopee_app.urls')),
+    path('shopee-seller-details/', include('shopee_app.urls')),
 ]
