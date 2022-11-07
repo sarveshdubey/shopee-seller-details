@@ -7,3 +7,6 @@ class SellerDetails_Model(models.Model):
 
 class GetLinks_Model(models.Model):
     URL = models.CharField(max_length=100, null=False, default=None)
+
+class ProductDetails_Model(models.Model):
+    URL = models.CharField(max_length=100, null=False, default=None)

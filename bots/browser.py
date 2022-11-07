@@ -20,8 +20,8 @@ class Browser:
                 "profile.password_manager_enabled": False,
             }
 
-        chrome_options.add_argument("--headless")
-        chrome_options.add_argument(f"--proxy-server={proxy}")
+        # chrome_options.add_argument("--headless")
+        # chrome_options.add_argument(f"--proxy-server={proxy}")
         chrome_options.add_argument("--proxy-bypass-list=*")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--log-level=3")

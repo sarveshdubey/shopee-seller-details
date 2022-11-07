@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import SellerDetails_Model,GetLinks_Model
+from .models import SellerDetails_Model,GetLinks_Model, ProductDetails_Model
 
 
 class SellerDetails_Serializer(serializers.ModelSerializer):
@@ -12,4 +12,10 @@ class SellerDetails_Serializer(serializers.ModelSerializer):
 class GetLinks_Serializer(serializers.ModelSerializer):
     class Meta:
         model = GetLinks_Model
+        fields = "__all__"
+
+
+class ProductDetails_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductDetails_Model
         fields = "__all__"

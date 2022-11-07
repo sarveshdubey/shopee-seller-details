@@ -11,14 +11,50 @@ class Details:
         self.browser.get(URL)
         sleep(4)
 
+                # english
         try:
-            over_18 = self.browser.find_element(By.XPATH,
+            english = self.browser.find_element(By.XPATH,
             '//button[contains(text(),"English")]')
-            self.browser.execute_script("arguments[0].click();",over_18)
-            sleep(4)
+            self.browser.execute_script("arguments[0].click();",english)
+            sleep(2)
         except:
             pass
 
+        # 404 
+        try:
+            over_18 = self.browser.find_element(By.XPATH,'//*[contains(text(),"It looks like something")]')
+            print("Found 404")
+            response = "404"
+            return response
+        except:
+            pass
+        
+        # something in Vietnamise
+        try:
+            over_18 = self.browser.find_element(By.XPATH,'//*[contains(text(),"Sản phẩm này không tồn tại")]')
+            print("Found 404 in Vietnamese")
+            response = "404VN"
+        except:
+            pass
+        
+        # if login comes
+        try:
+            over_18 = self.browser.find_element(By.XPATH,'//*[@type="password"]')
+            print("Login found:")
+            response = "login"
+            return response       
+        except:
+            pass
+        
+        # cancel the pop up
+        try:
+            pop_up = self.browser.find_element(By.CLASS_NAME,"home-popup__close-button")
+            print("Pop was there")
+            self.browser.execute_script("arguments[0].click();",pop_up)
+            sleep(3)
+        except:
+            pass
+        
         # over 18
         try:
             over_18 = self.browser.find_element(By.CSS_SELECTOR,
@@ -28,25 +64,7 @@ class Details:
             sleep(3)
         except:
             pass
-
-        # if login comes
-        try:
-            over_18 = self.browser.find_element(By.XPATH,'//*[@type="password"]')
-            print("Login found after clicking icon")
-            self.browser.quit()
-            name, followers, chat_performance, joined = "Login found","Login found","Login found","Login found",
-            rating, url, username , products, following = "Login found","Login found","Login found","Login found","Login found",
-            return name, followers, chat_performance, joined, rating, url, username , products, following
-        except:
-            pass
-
-        # cancel the pop up
-        try:
-            pop_up_button = self.browser.find_element(By.CLASS_NAME,"home-popup__close-button")
-            print("Pop was there")
-            self.browser.execute_script("arguments[0].click();",pop_up_button)
-        except:
-            pass
+        
 
         try:
             self.browser.execute_script("arguments[0].click();", self.browser.find_element(By.CSS_SELECTOR,"div.shopee-avatar._1a-fH5"))
@@ -118,16 +136,11 @@ class Details:
             except Exception as e:
                 print("URL and Username is none",e)
                 url = "NaN"
-                username = "NaN"
-
-            
+                username = "NaN"        
         except Exception as e:
             print("Failed to fetch details",e)
 
         print("Info:",name, followers, chat_performance, joined, rating, url, username, products, following)
-        return name, followers, chat_performance, joined, rating, url, username , products, following,active
-
-    def get_product_details(self):
 
         for k in range(1, 15000, 1000):
             sleep(0.5)
@@ -199,9 +212,6 @@ class Details:
             total_products,total_sold = "Nan", "Nan"
             print("Failed to get details",e)
 
-        return total_products,total_sold
-
-    def categories(self):
         try:
             # clicking first product
             self.browser.execute_script("arguments[0].click();",
@@ -219,7 +229,23 @@ class Details:
             category,sub_category = None,None
             print("Category and Sub-category not found",e)
 
-        return category,sub_category
+        response = {
+                        "Name": name,
+                        "Followers": followers,
+                        "Chat": chat_performance,
+                        "Joined": joined,
+                        "Rating": rating,
+                        "URL": url,
+                        "Username": username,
+                        "Products": products,
+                        "Following": following,
+                        "Active": active,
+                        "Total Products": total_products,
+                        "Total Sold": total_sold,
+                        "Category": category,
+                        "Sub-category": sub_category,
+                    }
+        return response
 
 
         

@@ -2,11 +2,12 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from .views import SellerDetails_View,GetLinks_View
+from .views import SellerDetails_View,GetLinks_View, ProductDetails_View
 
 urlpatterns = [
-    path('', SellerDetails_View.as_view(), name="Seller Details"),
-        path('getlinks', GetLinks_View.as_view(), name="Get Product Links"),
+    path('', SellerDetails_View.as_view(), name="Get Seller Details"),
+    path('getlinks', GetLinks_View.as_view(), name="Get Product Links"),
+    path('productdetails', ProductDetails_View.as_view(), name="Get Product DEtails"),
 
 ]
 

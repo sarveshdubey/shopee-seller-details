@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from time import sleep
 
-class Product_details:
+class ProductDetails:
     def __init__(self,browser=None) -> None:
         self.browser = browser
 
@@ -9,6 +9,8 @@ class Product_details:
 
         self.browser.get(URL)
         sleep(4)
+        k = 1000
+        self.browser.execute_script("window.scrollTo(0, {});".format(k))
 
         # english
         try:
@@ -96,7 +98,7 @@ class Product_details:
             sold = None
             print("sold",sold)
 
-        # details
+        # return details
         try:
             return_ = self.browser.find_elements(By.CSS_SELECTOR,"div._2xXtLT")[0].text
             print("return_",return_)
@@ -119,7 +121,7 @@ class Product_details:
         except:
             shipping = None
             print("Shipping",shipping)
-			
+        
         # available
         try:
             available = self.browser.find_elements(By.XPATH,'//*[contains(@class,"flex items-center _283ldj")]/div')[-1].text
@@ -127,16 +129,17 @@ class Product_details:
         except:
             evaluate = None
             print("Available", available)
-		
+
         # category
         try:
+            # get categories list
             categories = self.browser.find_elements(By.CSS_SELECTOR,'a.CyVtI7')
             category = categories[1].text
-            sub_category = categories[2].text
+            sub_category = categories[2].text + ">" + categories[3].text
             print("Category:", category,sub_category)
-        except Exception as e:
+        except:
             category,sub_category = None,None
-        
+
         # liked 
         try:
             liked = self.browser.find_element(By.CSS_SELECTOR,'div._11Toj4').text
@@ -145,8 +148,28 @@ class Product_details:
             liked = None
             print("Liked",liked)
 
+        # trademark
+        try:
+            trademark = self.browser.find_element(By.CSS_SELECTOR,'div._8N1GCt').text
+            print("trademark", trademark)
+        except:
+            liked = None
+            print("trademark",trademark)
 
+        response = {
+            "Name": name,
+            "category": category + ">" + sub_category,
+            "Rating": rating,
+            "Evaluate": evaluate,
+            "Sold": sold,
+            "Return": return_,
+            "Genuine": genuine,
+            "Shipping": shipping,
+            "Available": available,
+            "Liked": liked,
+            "Trademark": trademark
+        }
 
-
+        return response
 
 
